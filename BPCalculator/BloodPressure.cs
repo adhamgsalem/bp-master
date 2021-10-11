@@ -49,7 +49,7 @@ namespace BPCalculator
         public bool HighBloodPressure()
         {
             return ((this.Systolic < 190  && this.Systolic >= 140) && (this.Diastolic < 100 && this.Diastolic >= 90));
-        }BA
+        }
 
         // calculate BP category
         public BPCategory Category
