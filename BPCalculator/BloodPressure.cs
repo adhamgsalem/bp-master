@@ -45,7 +45,7 @@ namespace BPCalculator
             return ((this.Systolic < 140  && this.Systolic >= 120) && (this.Diastolic < 90 && this.Diastolic >= 80));
         }
 
-        //IF Systolic is less than 190 or euqal 140 and Diastolic is less than 100 or equal to 90 then BP is PREHIGH
+        //IF Systolic is less than 190 or euqal 140 and Diastolic is less than 100 or equal to 90 then BP is HIGH
         public bool HighBloodPressure()
         {
             return ((this.Systolic < 190  && this.Systolic >= 140) && (this.Diastolic < 100 && this.Diastolic >= 90));
