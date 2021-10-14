@@ -10,7 +10,8 @@ namespace BPCalculator
         [Display(Name="Low Blood Pressure")] Low,
         [Display(Name="Ideal Blood Pressure")]  Ideal,
         [Display(Name="Pre-High Blood Pressure")] PreHigh,
-        [Display(Name ="High Blood Pressure")]  High
+        [Display(Name ="High Blood Pressure")]  High,
+        [Display(Name = "Hypertensive crisis")] Crisis
     };
 
     public class BloodPressure
@@ -50,6 +51,12 @@ namespace BPCalculator
         {
             return ((this.Systolic < 190  && this.Systolic >= 140) && (this.Diastolic < 100 && this.Diastolic >= 90));
         }
+        public bool CrisisBloodPressure()
+        {
+            return ((this.Systolic >= 190) && (this.Diastolic >= 100));
+        }
+
+
 
         // calculate BP category
         public BPCategory Category
@@ -76,6 +83,11 @@ namespace BPCalculator
                     if (this.HighBloodPressure())
                 {
                     return BPCategory.High;
+                }
+
+                    if (this.CrisisBloodPressure())
+                {
+                    return BPCategory.Crisis;
                 }
 
                 return NoValue;
