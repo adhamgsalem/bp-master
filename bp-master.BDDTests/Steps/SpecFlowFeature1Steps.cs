@@ -8,29 +8,27 @@ namespace bp_master.BDDTests.Features.BloodPressure
     public class SpecFlowFeature1Steps
     {
         public BPCalculator.BloodPressure BP;
+        private int systolic;
+        private int diastolic;
+        
 
-    [Given(@"the systolic number is (.*)")]
+        [Given(@"the systolic number is (.*)")]
         public void GivenTheSystolicNumberIs(int systolic)
         {
-            ScenarioContext.Current["SystolicNumber"] = systolic;
+            this.systolic = systolic;
         }
 
         [Given(@"the diastolic number is (.*)")]
         public void GivenTheDiastolicNumberIs(int diastolic)
         {
-            ScenarioContext.Current["DiastolicNumber"] = Diastolic;
+            this.diastolic = diastolic;
         }
         
-        [When(@"the we calculate category")]
-        public void WhenTheWeCalculateCategory()
-        {
-            ScenarioContext.Current.Pending();
-        }
-        
-        [Then(@"the result should be low")]
+        [Then(@"the cateogry should be low")]
         public void ThenTheResultShouldBeLow()
         {
-            ScenarioContext.Current.Pending();
+            BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
+            Assert.AreEqual(BPCalculator.BPCategory.Crisis, BP.Category);
         }
     }
 }

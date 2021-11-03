@@ -11,7 +11,7 @@ namespace SeleniumTests
         IWebDriver driver;
 
         [SetUp]
-        public void start_Browser()
+        public void Start_Browser()
         {
             // Local Selenium WebDriver
             driver = new ChromeDriver();
@@ -120,7 +120,7 @@ namespace SeleniumTests
         }
 
         [TearDown]
-        public void close_Browser()
+        public void Close_Browser()
         {
             driver.Quit();
         }
