@@ -1,10 +1,13 @@
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using System;
- 
+using Assert = NUnit.Framework.Assert;
+
 namespace SeleniumTests
 {
+    [TestClass]
     class SeleniumTest
     {
         String app_url = "http://localhost:5000/";
@@ -18,9 +21,11 @@ namespace SeleniumTests
             driver.Manage().Window.Maximize();
         }
 
-        [Test]
+        [Test, Order(1)]
         public void TestLowCategory()
         {
+            driver.Url = app_url;
+
             IWebElement systolicPressure = driver.FindElement(By.Id("BP_Systolic"));
             systolicPressure.Clear();
             systolicPressure.SendKeys("80");
@@ -42,7 +47,8 @@ namespace SeleniumTests
             Assert.AreEqual(text, "Low Blood Pressure");
         }
 
-        [Test]
+
+        [Test, Order(2)]
         public void TestIdealCategory()
         {
             driver.Url = app_url;
@@ -68,7 +74,7 @@ namespace SeleniumTests
             Assert.AreEqual(text, "Ideal Blood Pressure");
         }
 
-        [Test]
+        [Test, Order(3)]
         public void TestPreCategory()
         {
             driver.Url = app_url;
@@ -94,6 +100,7 @@ namespace SeleniumTests
             Assert.AreEqual(text, "Pre-High Blood Pressure");
         }
 
+        [Test, Order(4)]
         public void TestHighCategory()
         {
             driver.Url = app_url;

@@ -28,7 +28,7 @@ namespace bp_master.BDDTests.Features.BloodPressure
         public void ThenTheResultShouldBeLow()
         {
             BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
-            Assert.AreEqual(BPCalculator.BPCategory.Crisis, BP.Category);
+            Assert.AreEqual(BPCalculator.BPCategory.Low, BP.Category);
         }
     }
 }

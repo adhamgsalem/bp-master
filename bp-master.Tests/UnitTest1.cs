@@ -18,8 +18,6 @@ namespace bp_master.Tests.BloodPressure
             BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
             Assert.Equal(BPCalculator.BPCategory.Low, BP.Category);
         }
-
-
         
         [Theory]
         [InlineData(119, 70)]
