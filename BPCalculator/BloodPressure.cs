@@ -11,15 +11,15 @@ namespace BPCalculator
         [Display(Name="Ideal Blood Pressure")]  Ideal,
         [Display(Name="Pre-High Blood Pressure")] PreHigh,
         [Display(Name ="High Blood Pressure")]  High,
-        [Display(Name = "Hypertensive crisis")] Crisis
+        [Display(Name = "Hypertensive-Crisis Blood Pressure")] Crisis
     };
 
     public class BloodPressure
     {
         public const int SystolicMin = 70;
-        public const int SystolicMax = 190;
+        public const int SystolicMax = 250;
         public const int DiastolicMin = 40;
-        public const int DiastolicMax = 100;
+        public const int DiastolicMax = 120;
 
         [Range(SystolicMin, SystolicMax, ErrorMessage = "Invalid Systolic Value")]
         public int Systolic { get; set; }                       // mmHG
