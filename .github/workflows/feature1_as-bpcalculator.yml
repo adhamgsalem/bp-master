@@ -91,3 +91,25 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4F4DF4CCCE794869A5A9BDC1F750D718 }}
           package: .
+  
+  acceptance-test:
+    runs-on: windows-latest
+    needs: deploy
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run acceptance tests
+        run : dotnet test
+        working-directory : ./bp-master.BDDTests
+        
+  selenuim-test:
+    runs-on: windows-latest
+    needs: acceptance-test
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run acceptance tests
+        run : dotnet test
+        working-directory : ./SeleniumTests
