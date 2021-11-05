@@ -10,8 +10,8 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-    name: Build
+  build-codequlaitycheck:
+    name: Build and check code quality
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
@@ -50,9 +50,18 @@ jobs:
           dotnet build --configuration Release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           
-  test:
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
+          
+  unit-test:
     runs-on: windows-latest
-    needs: build
+    needs: build-codequlaitycheck
 
     steps:
       - uses: actions/checkout@v2
@@ -63,7 +72,7 @@ jobs:
         
   deploy:
     runs-on: windows-latest
-    needs: test
+    needs: unit-test
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
