@@ -36,6 +36,16 @@ jobs:
         with:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
+          
+  test:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run unit tests
+        run : cd bp-master.Tests
+              dotnet test
 
   deploy:
     runs-on: windows-latest
