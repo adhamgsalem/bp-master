@@ -25,9 +25,6 @@ jobs:
       - name: Build with dotnet
         run: dotnet build --configuration Release
         
-      - name: Test with dotnet
-        run: dotnet test
-
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
@@ -39,17 +36,18 @@ jobs:
           
   test:
     runs-on: windows-latest
+    needs: build
 
     steps:
       - uses: actions/checkout@v2
       
       - name: Run unit tests
-        run : cd bp-master.Tests
-              dotnet test
-
+        run : dotnet test
+        working-directory : ./.adhamgsalem/bp-master/tree/feature1/bp-master.Tests
+        
   deploy:
     runs-on: windows-latest
-    needs: build
+    needs: test
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
