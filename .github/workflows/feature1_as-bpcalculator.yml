@@ -43,7 +43,7 @@ jobs:
       
       - name: Run unit tests
         run : dotnet test
-        working-directory : ./.adhamgsalem/bp-master/tree/feature1/bp-master.Tests
+        working-directory : ./bp-master.Tests
         
   deploy:
     runs-on: windows-latest
