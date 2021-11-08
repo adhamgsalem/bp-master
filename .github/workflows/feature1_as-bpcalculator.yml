@@ -120,8 +120,7 @@ jobs:
     needs: deploy-QA
 
     steps:
-      - name: Run K6
-      - uses: k6io/action@v0.1
+      - uses: actions/checkout@v2
         with:
           filename: Test1.js
           working-directory : ./bp-master.K6Tests
