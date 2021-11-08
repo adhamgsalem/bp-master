@@ -61,7 +61,7 @@ jobs:
           
   unit-test:
     runs-on: windows-latest
-    needs: build-codequlaitycheck
+    needs: build
 
     steps:
       - uses: actions/checkout@v2
