@@ -123,11 +123,16 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
 
-      - name: Run local k6 test
-        uses: k6io/action@v0.1
-        with:
-          filename: Test1.js
-          working-directory : ./bp-master.K6Tests
+      - name: Install k6
+        run: |
+          curl https://github.com/loadimpact/k6/releases/download/v0.26.2/k6-v0.26.2-linux64.tar.gz -L | tar xvz --strip-components 1
+      - name: Install packages
+        run: |
+          npm install
+      - name: Start server and run tests
+        run: |
+          npm start & npx wait-on http://as-bpcalculator.azurewebsites.net/
+          ./k6 run test.js
 
   deploy-PROD:
     runs-on: windows-latest
