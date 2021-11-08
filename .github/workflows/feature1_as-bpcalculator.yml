@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    name: Build and check code quality
+    name: Build
     runs-on: windows-latest
     steps:
       - name: Set up JDK 11
