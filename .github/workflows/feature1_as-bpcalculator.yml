@@ -122,17 +122,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Install k6
-        run: choco install k6
-      - name: Install packages
-        run: |
-          npm install
-      - name: Start server and run tests
-        run: |
-          npm start & npx wait-on http://as-bpcalculator.azurewebsites.net/
-          run Test1.js
-        working-directory: ./bp-master.K6Tests
+      - name: Run k6 cloud test
+        uses: k6io/action@v0.2.0
+        with:
+          filename: Test1.js
+          flags: --vus 50 --duration 10s
+          cloud: true
+          token: ${{ secrets.K6 }}
 
   deploy-PROD:
     runs-on: windows-latest
