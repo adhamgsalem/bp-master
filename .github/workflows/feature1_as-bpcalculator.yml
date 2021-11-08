@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-codequlaitycheck:
+  build:
     name: Build and check code quality
     runs-on: windows-latest
     steps:
@@ -117,7 +117,7 @@ jobs:
 
   deploy-PROD:
     runs-on: windows-latest
-    needs: build
+    needs: selenuim-test
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
