@@ -64,7 +64,7 @@ namespace bp_master.Tests.BloodPressure
         }
 
         [Theory]
-        [InlineData(200000, 10000)]
+        [InlineData(118, 99)]
         public void TestInvalidCategpry(int systolic, int diastolic)
         {
             BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
