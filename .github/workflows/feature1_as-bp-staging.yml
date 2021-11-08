@@ -40,7 +40,7 @@ jobs:
         working-directory : ./bp-master.Tests
 
       - name: Sonarscanner for dotnet
-        uses: Secbyte/dotnet-sonarscanner@2.284.0
+        uses: Secbyte/dotnet-sonarscanner@2.3
         with:
           buildCommand: dotnet build
           projectKey: adhamgsalem_bp-master
