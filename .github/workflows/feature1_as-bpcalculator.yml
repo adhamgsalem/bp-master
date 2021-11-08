@@ -69,10 +69,6 @@ jobs:
       - name: Run unit tests
         run : dotnet test
         working-directory : ./bp-master.Tests
-        uses: actions/upload-artifact@v2
-        with:
-         name: Unit Tests Results
-         path: TestResults/unittests.trx
 
   acceptance-test:
     runs-on: windows-latest
@@ -118,10 +114,6 @@ jobs:
       - name: Run acceptance tests
         run : dotnet test
         working-directory : ./SeleniumTests
-        uses: actions/upload-artifact@v2
-        with:
-         name: Selenium Tests Results
-         path: TestResults/selenium.trx
 
   deploy-PROD:
     runs-on: windows-latest
