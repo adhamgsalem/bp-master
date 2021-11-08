@@ -39,8 +39,16 @@ jobs:
         run : dotnet test
         working-directory : ./bp-master.Tests
 
-
-
+      - name: Sonarscanner for dotnet
+        uses: Secbyte/dotnet-sonarscanner@v2.3
+        with:
+          buildCommand: dotnet build
+          projectKey: adhamgsalem_bp-master
+          projectName: bp-master
+          sonarOrganisation: adhamgsalem
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   deploy1:
     runs-on: ubuntu-latest
@@ -78,19 +86,22 @@ jobs:
         working-directory : ./SeleniumTests
 
   k6_load_test:
+
     runs-on: ubuntu-latest
-    needs: deploy1
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Run k6 cloud test
-        uses: k6io/action@v0.2.0
-        with:
-          filename: Test1.js
-          flags: --vus 50 --duration 10s
-          cloud: true
-          token: ${{ secrets.K6 }}
+    - uses: actions/checkout@v2
+
+    - name: Pull Docker image for k6
+      run: docker pull loadimpact/k6
+
+    - name: Run k6 load test, capture report
+      run: docker run -i loadimpact/k6 run - <K6-BP/Test1.js > k6report.txt
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: k6report
+        path: k6report.txt
 
   deploy-PROD:
     runs-on: ubuntu-latest
