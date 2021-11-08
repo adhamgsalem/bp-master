@@ -47,7 +47,7 @@ jobs:
         shell: powershell
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"adhamgsalem_bp-master" /o:"adhamgsalem" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
-          dotnet run
+          dotnet build --configuration Release
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
           
       - name: dotnet publish
@@ -69,6 +69,10 @@ jobs:
       - name: Run unit tests
         run : dotnet test
         working-directory : ./bp-master.Tests
+        uses: actions/upload-artifact@v2
+        with:
+         name: Unit Tests Results
+         path: TestResults/unittests.trx
 
   acceptance-test:
     runs-on: windows-latest
@@ -114,6 +118,10 @@ jobs:
       - name: Run acceptance tests
         run : dotnet test
         working-directory : ./SeleniumTests
+        uses: actions/upload-artifact@v2
+        with:
+         name: Selenium Tests Results
+         path: TestResults/selenium.trx
 
   deploy-PROD:
     runs-on: windows-latest
