@@ -83,7 +83,7 @@ jobs:
         
   deploy-QA:
     runs-on: windows-latest
-    needs: unit-test
+    needs: acceptance-test
     environment:
       name: 'QA'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
