@@ -111,9 +111,23 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       
-      - name: Run acceptance tests
+      - name: Run selenuim tests
         run : dotnet test
         working-directory : ./SeleniumTests
+
+  k6_load_test:
+    runs-on: windows-latest
+    needs: deploy-QA
+
+    steps:
+      - name: Checkout
+      - uses: actions/checkout@v2
+
+      - name: Run K6
+      - uses: k6io/action@v0.1
+        with:
+          filename: Test1.js
+          working-directory : ./bp-master.K6Tests
 
   deploy-PROD:
     runs-on: windows-latest
