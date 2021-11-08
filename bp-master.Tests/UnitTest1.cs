@@ -8,6 +8,7 @@ namespace bp_master.Tests.BloodPressure
     public class UnitTest1
     {
         public BPCalculator.BloodPressure BP;
+        public BPCalculator.HeartRateCalculator HR;
 
         [Theory]
         [InlineData(71, 41)]
@@ -62,5 +63,50 @@ namespace bp_master.Tests.BloodPressure
             Assert.Equal(BPCalculator.BPCategory.Crisis, BP.Category);
         }
 
+        [Theory]
+        [InlineData(200000, 10000)]
+        public void TestInvalidCategpry(int systolic, int diastolic)
+        {
+            BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
+            Assert.Equal(BPCalculator.BPCategory.None, BP.Category);
+        }
+
+        [Theory]
+        [InlineData(39)]
+        [InlineData(35)]
+        [InlineData(31)]
+        public void TestLowRate(int heartRate)
+        {
+            HR = new BPCalculator.HeartRateCalculator() { HeartRate = heartRate };
+            Assert.Equal(BPCalculator.HRCategory.LowHR, HR.Category);
+        }
+
+        [Theory]
+        [InlineData(40)]
+        [InlineData(50)]
+        [InlineData(65)]
+        public void TestAverageRate(int heartRate)
+        {
+            HR = new BPCalculator.HeartRateCalculator() { HeartRate = heartRate };
+            Assert.Equal(BPCalculator.HRCategory.Average, HR.Category);
+        }
+
+        [Theory]
+        [InlineData(70)]
+        [InlineData(80)]
+        [InlineData(90)]
+        public void TestPoorRate(int heartRate)
+        {
+            HR = new BPCalculator.HeartRateCalculator() { HeartRate = heartRate };
+            Assert.Equal(BPCalculator.HRCategory.Poor, HR.Category);
+        }
+
+        [Theory]
+        [InlineData(90000)]
+        public void TestInvalidRate(int heartRate)
+        {
+            HR = new BPCalculator.HeartRateCalculator() { HeartRate = heartRate };
+            Assert.Equal(BPCalculator.HRCategory.None, HRCategory.None );
+        }
     }
 }
