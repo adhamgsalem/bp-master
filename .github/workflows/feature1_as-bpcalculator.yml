@@ -131,7 +131,7 @@ jobs:
       - name: Start server and run tests
         run: |
           npm start & npx wait-on http://as-bpcalculator.azurewebsites.net/
-          ./bp-master.K6Tests run Test1.js
+          run Test1.js
         working-directory: ./bp-master.K6Tests
 
   deploy-PROD:
