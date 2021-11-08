@@ -3,7 +3,7 @@ using System;
 using Xunit;
 
 
-namespace bp_master.Tests.BloodPressure  
+namespace bp_master.Tests.BloodPressure
 {
     public class UnitTest1
     {

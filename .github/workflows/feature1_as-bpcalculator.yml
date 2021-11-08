@@ -99,7 +99,7 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'AS-BPCalculator'
-          slot-name: 'QA'
+          slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4F4DF4CCCE794869A5A9BDC1F750D718 }}
           package: .
  
