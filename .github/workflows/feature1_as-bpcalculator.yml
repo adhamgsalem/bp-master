@@ -69,10 +69,55 @@ jobs:
       - name: Run unit tests
         run : dotnet test
         working-directory : ./bp-master.Tests
-        
-  deploy:
+
+  acceptance-test:
     runs-on: windows-latest
     needs: unit-test
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run acceptance tests
+        run : dotnet test
+        working-directory : ./bp-master.BDDTests
+        
+  deploy-QA:
+    runs-on: windows-latest
+    needs: unit-test
+    environment:
+      name: 'QA'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'AS-BPCalculator'
+          slot-name: 'QA'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4F4DF4CCCE794869A5A9BDC1F750D718 }}
+          package: .
+ 
+        
+  selenuim-test:
+    runs-on: windows-latest
+    needs: deploy-QA
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run acceptance tests
+        run : dotnet test
+        working-directory : ./SeleniumTests
+
+  deploy-PROD:
+    runs-on: windows-latest
+    needs: build
     environment:
       name: 'Production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
@@ -87,29 +132,7 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'AS-BPCalculator'
+          app-name: 'AS-BPCalculator-Staging'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4F4DF4CCCE794869A5A9BDC1F750D718 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FB5B9A0AB0D24B108B7B372ECCF3F1CE }}
           package: .
-  
-  acceptance-test:
-    runs-on: windows-latest
-    needs: deploy
-
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Run acceptance tests
-        run : dotnet test
-        working-directory : ./bp-master.BDDTests
-        
-  selenuim-test:
-    runs-on: windows-latest
-    needs: acceptance-test
-
-    steps:
-      - uses: actions/checkout@v2
-      
-      - name: Run acceptance tests
-        run : dotnet test
-        working-directory : ./SeleniumTests
