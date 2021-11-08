@@ -34,9 +34,20 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+                
+      - name: Run unit tests
+        run : dotnet test
+        working-directory : ./bp-master.Tests
+
+      - name: SonarCloud Scan
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
 
-  deploy:
+
+  deploy1:
     runs-on: ubuntu-latest
     needs: build
     environment:
@@ -61,8 +72,8 @@ jobs:
  
         
   selenuim-test:
-    runs-on: windows-latest
-    needs: deploy-QA
+    runs-on: ubuntu-latest
+    needs: deploy1
 
     steps:
       - uses: actions/checkout@v2
@@ -72,8 +83,8 @@ jobs:
         working-directory : ./SeleniumTests
 
   k6_load_test:
-    runs-on: windows-latest
-    needs: deploy-QA
+    runs-on: ubuntu-latest
+    needs: deploy1
 
     steps:
       - name: Checkout
@@ -87,7 +98,7 @@ jobs:
           token: ${{ secrets.K6 }}
 
   deploy-PROD:
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
     needs: selenuim-test
     environment:
       name: 'Production'
