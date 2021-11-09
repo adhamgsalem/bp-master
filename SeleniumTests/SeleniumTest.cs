@@ -10,7 +10,7 @@ namespace SeleniumTests
     [TestClass]
     class SeleniumTest
     {
-        String app_url = "http://localhost:5000/";
+        String app_url = "http://bpcalculator-test.azurewebsites.net/";
         IWebDriver driver;
 
         [SetUp]
@@ -44,7 +44,7 @@ namespace SeleniumTests
             System.Threading.Thread.Sleep(1000);
 
             String text = driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/form[1]/div[4]")).Text;
-            Assert.AreEqual(text, "Low Blood Pressure");
+            Assert.AreEqual("Low Blood Pressure", text);
         }
 
 
@@ -71,7 +71,7 @@ namespace SeleniumTests
             System.Threading.Thread.Sleep(1000);
 
             String text = driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/form[1]/div[4]")).Text;
-            Assert.AreEqual(text, "Ideal Blood Pressure");
+            Assert.AreEqual("Ideal Blood Pressure", text);
         }
 
         [Test, Order(3)]
@@ -97,7 +97,7 @@ namespace SeleniumTests
             System.Threading.Thread.Sleep(1000);
 
             String text = driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/form[1]/div[4]")).Text;
-            Assert.AreEqual(text, "Pre-High Blood Pressure");
+            Assert.AreEqual("Pre-High Blood Pressure", text);
         }
 
         [Test, Order(4)]
@@ -123,7 +123,7 @@ namespace SeleniumTests
             System.Threading.Thread.Sleep(1000);
 
             String text = driver.FindElement(By.XPath("/html[1]/body[1]/div[1]/main[1]/div[1]/div[1]/form[1]/div[4]")).Text;
-            Assert.AreEqual(text, "High Blood Pressure");
+            Assert.AreEqual("High Blood Pressure", text);
         }
 
         [TearDown]
