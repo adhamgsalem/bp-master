@@ -10,7 +10,7 @@ namespace SeleniumTests
     [TestClass]
     class SeleniumTest
     {
-        String app_url = "https://as-bpcalculator.azurewebsites.net/";
+        String app_url = "http://bpcalculator-test.azurewebsites.net/";
         IWebDriver driver;
 
         [SetUp]
