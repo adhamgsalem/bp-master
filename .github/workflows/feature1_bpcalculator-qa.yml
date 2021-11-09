@@ -73,7 +73,7 @@ jobs:
 
   selenuim-test:
     runs-on: windows-latest
-    needs: deploy1
+    needs: deploy
 
     steps:
       - uses: actions/checkout@v2
@@ -85,6 +85,7 @@ jobs:
   k6_load_test:
 
     runs-on: windows-latest
+    needs: deploy
 
     steps:
     - uses: actions/checkout@v2
