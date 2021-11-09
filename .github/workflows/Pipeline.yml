@@ -53,5 +53,5 @@ jobs:
         with:
           app-name: 'qa-bp'
           slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_d4cb6e2028c6433eaab86ef80508584e }}
           package: .
