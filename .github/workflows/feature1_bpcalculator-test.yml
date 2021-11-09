@@ -34,7 +34,22 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
-  deploy:
+      - name: Run unit tests
+        run : dotnet test
+        working-directory : ./bp-master.Tests
+
+      - name: Sonarscanner for dotnet
+        uses: Secbyte/dotnet-sonarscanner@5.3.2
+        with:
+          buildCommand: dotnet build
+          projectKey: adhamgsalem_bp-master
+          projectName: bp-master
+          sonarOrganisation: adhamgsalem
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  deploy-TEST:
     runs-on: ubuntu-latest
     needs: build
     environment:
@@ -55,3 +70,30 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_31EB73F2F3FB4889873B69BD42B14108 }}
           package: .
+
+  selenuim-test:
+    runs-on: ubuntu-latest
+    needs: deploy-TEST
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run selenuim tests
+        run : dotnet test
+        working-directory : ./SeleniumTests
+
+  k6_load_test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Pull Docker image for k6
+      run: docker pull loadimpact/k6
+
+    - name: Run k6 load test, capture report
+      run: docker run -i loadimpact/k6 run - <bp-master.K6Tests/Test1.js > k6report.txt
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: k6report
+        path: k6report.txt
+
