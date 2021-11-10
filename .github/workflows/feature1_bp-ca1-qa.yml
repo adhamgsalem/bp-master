@@ -1,7 +1,7 @@
 # Docs for the Azure Web Apps Deploy action: https://github.com/Azure/webapps-deploy
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
-name: Build and deploy ASP.Net Core app to Azure Web App - BP-CA1-QA
+name: Build and deploy Azure Web App - BP-CA1-QA
 
 on:
   push:
@@ -70,3 +70,35 @@ jobs:
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FBBA35A8552648E78067FA535015682C }}
           package: .
+
+  selenuim-test:
+    runs-on: windows-latest
+    needs: deploy-test
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run selenuim tests
+        run : dotnet test
+        working-directory : ./SeleniumTests
+
+        uses: actions/upload-artifact@v2
+        with:
+          name: selenuimreport
+          path: selenuimreport.txt
+
+  k6_load_test:
+    runs-on: ubuntu-latest
+    needs: deploy-test
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Pull Docker image for k6
+      run: docker pull loadimpact/k6
+
+    - name: Run k6 load test, capture report
+      run: docker run -i loadimpact/k6 run - <bp-master.K6Tests/Test2.js > k6report.txt
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: k6report
+        path: k6report.txt

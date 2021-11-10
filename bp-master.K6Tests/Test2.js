@@ -10,8 +10,8 @@ export default function main() {
 
     const vars = {};
 
-    group("page_1 - https://as-bpcalculator.azurewebsites.net/", function () {
-        response = http.get("https://as-bpcalculator.azurewebsites.net/", {
+    group("page_1 - https://bp-ca1-qa.azurewebsites.net/", function () {
+        response = http.get("https://bp-ca1-qa.azurewebsites.net/", {
             headers: {
                 "upgrade-insecure-requests": "1",
                 "sec-ch-ua":
@@ -30,7 +30,7 @@ export default function main() {
         sleep(14.5);
 
         response = http.post(
-            "https://as-bpcalculator.azurewebsites.net/",
+            "https://bp-ca1-qa.azurewebsites.net/",
             {
                 "BP.Systolic": "90",
                 "BP.Diastolic": "50",
@@ -39,7 +39,7 @@ export default function main() {
             {
                 headers: {
                     "content-type": "application/x-www-form-urlencoded",
-                    origin: "https://as-bpcalculator.azurewebsites.net",
+                    origin: "https://bp-ca1-qa.azurewebsites.net/",
                     "upgrade-insecure-requests": "1",
                     "sec-ch-ua":
                         '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',
@@ -52,10 +52,10 @@ export default function main() {
     });
 
     group(
-        "page_2 - https://as-bpcalculator.azurewebsites.net/HeartRate",
+        "page_2 - https://bp-ca1-qa.azurewebsites.net/HeartRate",
         function () {
             response = http.get(
-                "https://as-bpcalculator.azurewebsites.net/HeartRate",
+                "https://bp-ca1-qa.azurewebsites.net/HeartRate",
                 {
                     headers: {
                         "upgrade-insecure-requests": "1",
@@ -69,7 +69,7 @@ export default function main() {
             sleep(4.2);
 
             response = http.post(
-                "https://as-bpcalculator.azurewebsites.net/HeartRate",
+                "https://bp-ca1-qa.azurewebsites.net//HeartRate",
                 {
                     "HR.HeartRate": "90",
                     __RequestVerificationToken:
@@ -78,7 +78,7 @@ export default function main() {
                 {
                     headers: {
                         "content-type": "application/x-www-form-urlencoded",
-                        origin: "https://as-bpcalculator.azurewebsites.net",
+                        origin: "https://bp-ca1-qa.azurewebsites.net/",
                         "upgrade-insecure-requests": "1",
                         "sec-ch-ua":
                             '"Google Chrome";v="95", "Chromium";v="95", ";Not A Brand";v="99"',

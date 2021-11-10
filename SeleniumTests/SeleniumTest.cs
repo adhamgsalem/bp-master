@@ -10,7 +10,7 @@ namespace SeleniumTests
     [TestClass]
     class SeleniumTest
     {
-        String app_url = "http://bpcalculator-test.azurewebsites.net/";
+        String app_url = "https://bp-ca1-qa.azurewebsites.net/";
         IWebDriver driver;
 
         [SetUp]
@@ -18,7 +18,6 @@ namespace SeleniumTests
         {
             // Local Selenium WebDriver
             driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
         }
 
         [Test, Order(1)]

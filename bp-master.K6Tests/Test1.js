@@ -23,6 +23,6 @@ export let options = {
 };
 
 export default function main() {
-    let response = http.get('https://as-bpcalculator.azurewebsites.net/')
+    let response = http.get('https://bp-ca1-qa.azurewebsites.net/')
     sleep(1)
 }
