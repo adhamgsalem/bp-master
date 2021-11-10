@@ -34,6 +34,21 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+      - name: Run unit tests
+        run : dotnet test
+        working-directory : ./bp-master.Tests
+
+      - name: Sonarscanner for dotnet
+        uses: Secbyte/dotnet-sonarscanner@v2.3
+        with:
+          buildCommand: dotnet build
+          projectKey: adhamgsalem_bp-master
+          projectName: bp-master
+          sonarOrganisation: adhamgsalem
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
   deploy:
     runs-on: windows-latest
     needs: build
