@@ -2,6 +2,8 @@
 # More GitHub Actions for Azure: https://github.com/Azure/actions
 
 name: Build and deploy Azure Web App - BP-CA1-QA
+env:
+  URI: https://bp-ca1-qa.azurewebsites.net/
 
 on:
   push:
@@ -81,6 +83,11 @@ jobs:
         run : dotnet test
         working-directory : ./SeleniumTests
 
+      - uses: actions/upload-artifact@v2
+        with:
+         name: selenuimreport
+         path: /report/k6report.html
+
   k6_load_test:
     runs-on: ubuntu-latest
     needs: deploy
@@ -96,4 +103,22 @@ jobs:
     - uses: actions/upload-artifact@v2
       with:
         name: k6report
-        path: k6report.txt
+        path: /report/k6report.html
+
+  zap_pentest_scan:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - name: Pull Docker image for ZAP
+      run: docker pull owasp/zap2docker-weekly
+
+    - name: Run baseline scan
+      run: docker run -v /report:/zap/wrk/:rw --user root -t owasp/zap2docker-weekly zap-baseline.py -t ${{env.URI}} -I -r zapreport.html
+  
+    - uses: actions/upload-artifact@v2
+      name: upload ZAP report
+      with:
+        name: ZAPreport
+        path: /report/zapreport.html
