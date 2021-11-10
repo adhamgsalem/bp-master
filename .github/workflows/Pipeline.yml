@@ -73,7 +73,7 @@ jobs:
 
   selenuim-test:
     runs-on: windows-latest
-    needs: deploy-test
+    needs: deploy
     steps:
       - uses: actions/checkout@v2
       
@@ -83,7 +83,7 @@ jobs:
 
   k6_load_test:
     runs-on: ubuntu-latest
-    needs: deploy-test
+    needs: deploy
     steps:
     - uses: actions/checkout@v2
 
