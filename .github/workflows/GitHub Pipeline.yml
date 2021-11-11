@@ -40,9 +40,12 @@ jobs:
         run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
         working-directory : ./bp-master.Tests
 
-      - uses: codecov/codecov-action@v1
+      - name: Publish coverage report to coveralls.io
+        uses: coverallsapp/github-action@master
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+         repo_token: 95Xocq3ZHjPxnHfsLw76h4tKRIZIQgLEU
+         github-token: ${{ secrets.GITHUB_TOKEN }}
+         path-to-lcov: ./MyLibrary.Tests/TestResults/coverage.info 
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
