@@ -45,8 +45,8 @@ jobs:
         if: success() || failure()    
         with:
           name: JEST Tests            
-          path: ./test-reports/*.xml   
-          reporter: jest-junit
+          path: '**.trx'
+          reporter: 'dotnet-trx'      
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
