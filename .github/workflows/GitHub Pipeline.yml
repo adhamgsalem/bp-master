@@ -40,6 +40,14 @@ jobs:
         run : dotnet test
         working-directory : ./bp-master.Tests
 
+      - name: Test Reporter
+        uses: dorny/test-reporter@v1.5.0
+        if: success() || failure()    
+        with:
+          name: JEST Tests            
+          path: reports.xml    
+          reporter: jest-junit
+
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
         with:
@@ -87,6 +95,8 @@ jobs:
         with:
          name: selenuimreport
          path: selenuimreport.txt
+
+        
 
   k6_load_test:
     runs-on: ubuntu-latest
