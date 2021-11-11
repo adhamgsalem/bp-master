@@ -40,13 +40,13 @@ jobs:
         run : dotnet test
         working-directory : ./bp-master.Tests
 
-      - name: Publish Unit Test Results
-        uses: dorny/test-reporter@v1
+      - name: Test results
+        uses: zyborg/dotnet-tests-report@v1
         with:
-         artifact: ''
-         name: MS Tests                  
-         path: '**.trx'
-         reporter: 'dotnet-trx'      
+          project_path: tests/My.Project.Tests
+          report_name: my_project_tests
+          report_title: My Project Tests
+          github_token: ${{ secrets.GITHUB_TOKEN }}    
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
@@ -95,8 +95,6 @@ jobs:
         with:
          name: selenuimreport
          path: selenuimreport.txt
-
-        
 
   k6_load_test:
     runs-on: ubuntu-latest
