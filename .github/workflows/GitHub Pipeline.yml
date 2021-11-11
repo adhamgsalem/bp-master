@@ -37,12 +37,13 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
       - name: Run unit tests
-        run : dotnet test
+        run : dotnet test -l:trx;LogFileName=./TestOutput.xml
         working-directory : ./bp-master.Tests
 
       - uses: codecov/codecov-action@v1
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./TestOutput.xml
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
