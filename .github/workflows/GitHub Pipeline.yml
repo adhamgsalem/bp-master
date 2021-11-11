@@ -48,9 +48,11 @@ jobs:
           report_title: Unit Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}
 
-      - uses: codecov/codecov-action@v2
+      - uses: actions/checkout@v2
+      - uses: codecov/bp-master@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
+          files: ./coverage1.xml,./coverage2.xml
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
