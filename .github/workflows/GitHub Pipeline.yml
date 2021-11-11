@@ -37,8 +37,16 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
       - name: Run unit tests
-        run : dotnet test
+        run : dotnet test --collect:"XPlat Code Coverage"
         working-directory : ./bp-master.Tests
+
+      - name: Generate test report
+        run: reportgenerator -reports:./TestResults/*/*.xml -targetdir:./Reports
+        working-directory : ./bp-master.Tests
+
+      - uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
