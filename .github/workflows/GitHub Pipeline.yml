@@ -42,13 +42,12 @@ jobs:
 
       - uses: codecov/codecov-action@v1
         with:
-          token: ${{ secrets.CODECOV_TOKEN }} # not required for public repos
-          files: ./TestResults.xml
+          token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
         with:
-          buildCommand: dotnet test
+          buildCommand: dotnet build
           projectKey: adhamgsalem_bp-master
           projectName: bp-master
           sonarOrganisation: adhamgsalem
