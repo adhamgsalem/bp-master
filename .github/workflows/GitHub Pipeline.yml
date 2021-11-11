@@ -84,7 +84,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Run selenuim tests
-        run : dotnet test
+        run : dotnet test -l:trx;LogFileName=./TestOutput.xml
         working-directory : ./SeleniumTests
 
       - name: Test results
