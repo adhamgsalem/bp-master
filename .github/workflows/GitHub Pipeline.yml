@@ -43,7 +43,7 @@ jobs:
       - name: Test results
         uses: zyborg/dotnet-tests-report@v1
         with:
-          project_path: tests/My.Project.Tests
+          project_path: ./bp-master.Tests
           report_name: my_project_tests
           report_title: My Project Tests
           github_token: ${{ secrets.GITHUB_TOKEN }}    
@@ -130,4 +130,4 @@ jobs:
       name: upload ZAP report
       with:
         name: ZAPreport
-        path: zapreport.txt
+        path: /report/zapreport.html
