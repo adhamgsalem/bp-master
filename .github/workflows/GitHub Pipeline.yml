@@ -38,7 +38,7 @@ jobs:
 
       - name: Run unit tests
         run : dotnet test --no-restore --collect "Code coverage"
-        working-directory : ./bp-master.Tests/bp-master.Tests.csproj
+        working-directory : ./bp-master.Tests
 
       - name: Test results
         uses: zyborg/dotnet-tests-report@v1
@@ -114,12 +114,12 @@ jobs:
       run: docker pull loadimpact/k6
 
     - name: Run k6 load test, capture report
-      run: docker run -i loadimpact/k6 run - <bp-master.K6Tests/Test2.js > k6report.txt
+      run: docker run -i loadimpact/k6 run - <bp-master.K6Tests/Test2.js > k6report.html
 
     - uses: actions/upload-artifact@v2
       with:
         name: k6report
-        path: k6report.txt
+        path: k6report.html
 
   zap_pentest_scan:
 
