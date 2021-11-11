@@ -37,11 +37,9 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
       - name: Run unit tests
-        run : dotnet test --collect:"XPlat Code Coverage"
-        working-directory : ./bp-master.Tests
-
-      - name: Generate test report
-        run: reportgenerator -reports:./TestResults/*/*.xml -targetdir:./Reports
+        run: |
+              cd ./bp-master.Tests
+              dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
         working-directory : ./bp-master.Tests
 
       - uses: codecov/codecov-action@v1
