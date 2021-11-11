@@ -38,6 +38,8 @@ jobs:
 
       - name: Run unit tests
         run : dotnet test
+              --logger 'xunit;LogFileName=TestResults.xml' 
+              --results-directory ./bp-master.Tests
         working-directory : ./bp-master.Tests
 
       - name: Test results
