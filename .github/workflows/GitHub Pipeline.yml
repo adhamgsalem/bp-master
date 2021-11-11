@@ -44,8 +44,8 @@ jobs:
         uses: zyborg/dotnet-tests-report@v1
         with:
           project_path: ./bp-master.Tests
-          report_name: my_project_tests
-          report_title: My Project Tests
+          report_name: Unit Test Results
+          report_title: Unit Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}    
 
       - name: Sonarscanner for dotnet
@@ -90,6 +90,14 @@ jobs:
       - name: Run selenuim tests
         run : dotnet test
         working-directory : ./SeleniumTests
+
+      - name: Test results
+        uses: zyborg/dotnet-tests-report@v1
+        with:
+          project_path: ./SeleniumTests
+          report_name: Selenuim Test Results
+          report_title: Selenuim Test Results
+          github_token: ${{ secrets.GITHUB_TOKEN }}    
 
       - uses: actions/upload-artifact@v2
         with:
