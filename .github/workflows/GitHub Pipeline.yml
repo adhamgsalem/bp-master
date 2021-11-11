@@ -37,13 +37,8 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
       - name: Run unit tests
-        run : dotnet test -l:trx;LogFileName=./TestOutput.xml
+        run : dotnet test
         working-directory : ./bp-master.Tests
-
-      - uses: codecov/codecov-action@v1
-        with:
-          token: ${{ secrets.CODECOV_TOKEN }}
-          file: ./TestOutput.xml
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
@@ -85,7 +80,7 @@ jobs:
       - uses: actions/checkout@v2
       
       - name: Run selenuim tests
-        run : dotnet test -l:trx;LogFileName=./TestOutput.xml
+        run : dotnet test
         working-directory : ./SeleniumTests
 
       - name: Test results
