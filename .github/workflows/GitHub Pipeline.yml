@@ -38,17 +38,7 @@ jobs:
 
       - name: Run unit tests
         run : dotnet test
-              --logger 'xunit;LogFileName=TestResults.xml' 
-              --results-directory ./bp-master.Tests
         working-directory : ./bp-master.Tests
-
-      - name: Test results
-        uses: zyborg/dotnet-tests-report@v1
-        with:
-          project_path: ./bp-master.Tests
-          report_name: Unit Test Results
-          report_title: Unit Test Results
-          github_token: ${{ secrets.GITHUB_TOKEN }}
 
       - uses: codecov/codecov-action@v1
         with:
@@ -58,7 +48,7 @@ jobs:
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
         with:
-          buildCommand: dotnet build
+          buildCommand: dotnet test
           projectKey: adhamgsalem_bp-master
           projectName: bp-master
           sonarOrganisation: adhamgsalem
