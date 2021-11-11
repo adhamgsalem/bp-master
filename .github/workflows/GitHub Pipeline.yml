@@ -38,12 +38,12 @@ jobs:
 
       - name: Run unit tests
         run : dotnet test --no-restore --collect "Code coverage"
-        working-directory : ./bp-master.Tests
+        working-directory : ./BPCalculator
 
       - name: Test results
         uses: zyborg/dotnet-tests-report@v1
         with:
-          project_path: ./bp-master.Tests
+          project_path: ./BPCalculator
           report_name: Unit Test Results
           report_title: Unit Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}    
