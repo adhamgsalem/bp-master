@@ -99,11 +99,6 @@ jobs:
           report_title: Selenuim Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }}    
 
-      - uses: actions/upload-artifact@v2
-        with:
-         name: selenuimreport
-         path: selenuimreport.txt
-
   k6_load_test:
     runs-on: ubuntu-latest
     needs: deploy
@@ -114,12 +109,12 @@ jobs:
       run: docker pull loadimpact/k6
 
     - name: Run k6 load test, capture report
-      run: docker run -i loadimpact/k6 run - <bp-master.K6Tests/Test2.js > k6report.html
+      run: docker run -i loadimpact/k6 run - <bp-master.K6Tests/Test2.js > k6report.txt
 
     - uses: actions/upload-artifact@v2
       with:
         name: k6report
-        path: k6report.html
+        path: k6report.txt
 
   zap_pentest_scan:
 
