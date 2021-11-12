@@ -34,7 +34,7 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
       - name: Run unit tests
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+        run: dotnet test -c Release --no-build  /p:CollectCoverage=true /p:CoverletOutput="$GITHUB_WORKSPACE/coverage/lcov.info" /p:MergeWith="$GITHUB_WORKSPACE/coverage/lcov.info" /p:CoverletOutputFormat=lcov
         working-directory : ./bp-master.Tests
 
       - name: Publish coverage report to coveralls.io
@@ -42,7 +42,7 @@ jobs:
         with:
          repo_token: 95Xocq3ZHjPxnHfsLw76h4tKRIZIQgLEU
          github-token: ${{ secrets.GITHUB_TOKEN }}
-         path-to-lcov: ./TestResults/coverage.info
+         path-to-lcov: ${{ github.workspace }}/coverage/lcov.info
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
