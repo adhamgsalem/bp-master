@@ -36,6 +36,9 @@ jobs:
           name: .net-app
           path: ${{env.DOTNET_ROOT}}/myapp
 
+      - name: Install nugget packagae
+      - run: dotnet add package coverlet.msbuild --version 3.1.0
+
       - name: Run unit tests
         run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
         working-directory : ./bp-master.Tests
