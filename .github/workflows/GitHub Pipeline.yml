@@ -41,7 +41,6 @@ jobs:
         uses: coverallsapp/github-action@master
         with:
          github-token: ${{ secrets.GITHUB_TOKEN }}
-         path-to-lcov: ./home/runner 
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
