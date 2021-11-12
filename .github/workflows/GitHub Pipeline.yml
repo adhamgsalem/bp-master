@@ -27,9 +27,6 @@ jobs:
       - name: dotnet publish
         run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
 
-      - name: Install nugget packagae
-      - run: dotnet add package coverlet.msbuild --version 3.1.0
-
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v2
         with:
@@ -37,7 +34,7 @@ jobs:
           path: ${{env.DOTNET_ROOT}}/myapp
 
       - name: Run unit tests
-        run: dotnet test /p:CollectCoverage=true /p:CoverletOutput=TestResults/ /p:CoverletOutputFormat=lcov
+        run: dotnet test -c Release --no-build  /p:CollectCoverage=true /p:CoverletOutput="$GITHUB_WORKSPACE/coverage/lcov.info" /p:MergeWith="$GITHUB_WORKSPACE/coverage/lcov.info" /p:CoverletOutputFormat=lcov
         working-directory : ./bp-master.Tests
 
       - name: Publish coverage report to coveralls.io
