@@ -42,7 +42,7 @@ jobs:
         with:
          repo_token: 95Xocq3ZHjPxnHfsLw76h4tKRIZIQgLEU
          github-token: ${{ secrets.GITHUB_TOKEN }}
-         path-to-lcov: ./bp-master.Tests/coverage.info 
+         path-to-lcov: ./TestResults/coverage.info
 
       - name: Sonarscanner for dotnet
         uses: Secbyte/dotnet-sonarscanner@v2.3
