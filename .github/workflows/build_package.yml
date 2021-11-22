@@ -99,7 +99,7 @@ jobs:
     runs-on: windows-latest
     needs: Acceptance_Test
     environment:
-      name: 'production'
+      name: 'bp-ca1-staging'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -112,9 +112,9 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'bp-ca1-prod'
-          slot-name: 'staging'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
+          app-name: 'bp-ca1-prod(bp-ca1-staging)'
+          slot-name: 'bp-ca1-staging'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_4b59107e886b45e68cc5afa8cdf59b4d }}
           package: .
 
   Selenuim_Test:
