@@ -103,6 +103,11 @@ jobs:
       url: https://bp-ca1-prod-bp-ca1-staging.azurewebsites.net/
 
     steps:
+      - name: Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
