@@ -100,7 +100,7 @@ jobs:
     needs: Acceptance_Test
     environment:
       name: 'bp-ca1-staging'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: https://bp-ca1-prod-bp-ca1-staging.azurewebsites.net/
 
     steps:
       - name: Download artifact from build job
@@ -177,7 +177,7 @@ jobs:
     needs: Selenuim_Test
     environment:
       name: 'production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+      url: https://bp-ca1-prod.azurewebsites.net/
 
     steps:
       - name: Download artifact from build job
