@@ -94,7 +94,7 @@ jobs:
       
       - name: Run acceptance tests
         run : dotnet test
-        working-directory : ./BDDTests
+        working-directory : ./bp-master.BDDTests
 
       - name: Test results
         uses: zyborg/dotnet-tests-report@v1
