@@ -97,7 +97,7 @@ jobs:
 
   Deploy_STAGING:
     runs-on: windows-latest
-    needs: build
+    needs: Acceptance_Test
     environment:
       name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
