@@ -100,16 +100,9 @@ jobs:
     needs: Acceptance_Test
     environment:
       name: 'bp-ca1-staging'
-      url: https://bp-ca1-prod-bp-ca1-staging.azurewebsites.net/
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
-      - name: Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
-          username: bp-ca1-prod__bp-ca1-staging\$bp-ca1-prod__bp-ca1-staging
-          password: k24vqkkgYimi7Npdc2zZPuq4cYv2sabsQv4Eb0hukznYoyJGrjH2mlKccH97
-
       - name: Download artifact from build job
         uses: actions/download-artifact@v2
         with:
@@ -121,7 +114,7 @@ jobs:
         with:
           app-name: 'bp-ca1-prod(bp-ca1-staging)'
           slot-name: 'bp-ca1-staging'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_4b59107e886b45e68cc5afa8cdf59b4d }}
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_229a6d3a815e4b1a892c9509bbcd76c1 }}
           package: .
 
   Selenuim_Test:
