@@ -114,9 +114,10 @@ jobs:
         uses: azure/webapps-deploy@v2
         with:
           app-name: 'bp-ca1-prod'
-          slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_25b10ad5146a4ad7860a11c807dac352 }}
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B23C5F69416B4390859FBA92B3191F1E }}
           package: .
+
 
   Selenuim_Test:
     runs-on: windows-latest
