@@ -10,6 +10,8 @@ ASP.Net Core
 ### Status Information
 Sonar Code Analysis
 [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=adhamgsalem_bp-master)
+
+
 Build and Deploy pipeline
 [![Build and deploy](https://github.com/adhamgsalem/bp-master/actions/workflows/build_package.yml/badge.svg)](https://github.com/adhamgsalem/bp-master/actions/workflows/build_package.yml)
 
@@ -52,7 +54,7 @@ The application is compiled using the DOTNET Core task. This task has a number o
 Code Analysis is being performed by Sonar Cloud.
 
 ##### Sonar Cloud
-The Sonar Cloud project used for code quality analysis is the [![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=adhamgsalem_bp-master) . This tool is linked to the GITHub repository for analysis cand provides information on:
+The Sonar Cloud project used for code quality analysis. This tool is linked to the GITHub repository for analysis cand provides information on:
 * Bugs
 * Code Smells
 * Coverage  
