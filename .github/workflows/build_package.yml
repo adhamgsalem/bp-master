@@ -118,7 +118,7 @@ jobs:
 
   Selenuim_Test:
     runs-on: windows-latest
-    needs: Deploy_PROD
+    needs: Deploy_STAGING
     steps:
       - uses: actions/checkout@v2
       
