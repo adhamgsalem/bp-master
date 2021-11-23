@@ -95,11 +95,12 @@ jobs:
         run : dotnet test
         working-directory : ./bp-master.BDDTests   
 
-  Deploy_STAGING:
+
+  Deploy_PROD:
     runs-on: windows-latest
     needs: Acceptance_Test
     environment:
-      name: 'bp-ca1-staging'
+      name: 'production'
       url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
 
     steps:
@@ -112,9 +113,9 @@ jobs:
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
         with:
-          app-name: 'bp-ca1-prod(bp-ca1-staging)'
-          slot-name: 'bp-ca1-staging'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_229a6d3a815e4b1a892c9509bbcd76c1 }}
+          app-name: 'bp-ca1-prod'
+          slot-name: 'production'
+          publish-profile: ${{ secrets.AzureAppService_PublishProfile_25b10ad5146a4ad7860a11c807dac352 }}
           package: .
 
   Selenuim_Test:
@@ -134,6 +135,7 @@ jobs:
           report_name: Selenuim Test Results
           report_title: Selenuim Test Results
           github_token: ${{ secrets.GITHUB_TOKEN }} 
+
 
   K6_Load_Test:
     runs-on: ubuntu-latest
@@ -171,28 +173,6 @@ jobs:
         name: ZAPreport
         path: /report/zapreport.html
 
-
-  Deploy_PROD:
-    runs-on: windows-latest
-    needs: Selenuim_Test
-    environment:
-      name: 'production'
-      url: https://bp-ca1-prod.azurewebsites.net/
-
-    steps:
-      - name: Download artifact from build job
-        uses: actions/download-artifact@v2
-        with:
-          name: .net-app
-
-      - name: Deploy to Azure Web App
-        id: deploy-to-webapp
-        uses: azure/webapps-deploy@v2
-        with:
-          app-name: 'bp-ca1-prod'
-          slot-name: 'production'
-          publish-profile: ${{ secrets.AzureAppService_PublishProfile_1234 }}
-          package: .
 
 
 
