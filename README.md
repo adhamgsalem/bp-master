@@ -34,6 +34,7 @@ Blood Pressure and Heart Rate Calculator application is a .Net Razor application
 ### Source Code Management
 The Blood Pressure and Heart Rate Calculator is stored in a GIT based source code management system from GiTHub. GIT a lightweight but powerful decentralised SCM. All code for the project can be found in the https://github.com/adhamgsalem/bp-master
 
+---
 ### Build Pipeline
 Build services are provided by GitHub Actions. This suite of tools provide Agents and Task for building of applications across multiple platforms.  The build pipeline implements the following funcationality:
 
@@ -60,6 +61,7 @@ The Sonar Cloud project used for code quality analysis. This tool is linked to t
 * Coverage  
 The tool provide a widget that is availalbe in the Azure DevOps Dashboard. It is possible to get code coverage information both additional manipulation of the .coverage is required for the information to be available for analysis
 
+---
 ### Release Pipeline
 The release pipeline is developed in GitHub actions. The release pipeline is linked to the Build Pipeline with artifcates being made available to the release after a successful build has completed. 
 The release pipeline is comprised of the following stages:
@@ -91,4 +93,3 @@ The Azure Platform, also provides deployment slots that are used in the release 
 	2. Check that if HR >= 40 and < 70 then HR categorty should be AVERAGE
 	3. Check that if HR >= 70 and <100 then HR categorty should be POOR
 ---
-
