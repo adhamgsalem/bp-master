@@ -1,0 +1,191 @@
+name: Build and deploy
+env:
+  URI: https://bp-ca1-qa.azurewebsites.net/
+
+on:
+  push:
+    branches:
+      - feature1
+  workflow_dispatch:
+
+jobs:
+  Build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up .NET Core
+        uses: actions/setup-dotnet@v1
+        with:
+          dotnet-version: '3.1.301'
+          include-prerelease: true
+
+      - name: Build with dotnet
+        run: dotnet build --configuration Release
+
+      - name: dotnet publish
+        run: dotnet publish -c Release -o ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v2
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
+
+      - name: Run unit tests
+        run: dotnet test -c Release --no-build  /p:CollectCoverage=true /p:CoverletOutput="$GITHUB_WORKSPACE/coverage/lcov.info" /p:MergeWith="$GITHUB_WORKSPACE/coverage/lcov.info" /p:CoverletOutputFormat=lcov
+        working-directory : ./bp-master.Tests
+
+      - name: Publish coverage report to coveralls.io
+        uses: coverallsapp/github-action@master
+        with:
+         repo_token: 95Xocq3ZHjPxnHfsLw76h4tKRIZIQgLEU
+         github-token: ${{ secrets.GITHUB_TOKEN }}
+         path-to-lcov: ${{ github.workspace }}/coverage/lcov.info
+
+      - name: Test results
+        uses: zyborg/dotnet-tests-report@v1
+        with:
+          project_path: ./bp-master.Tests
+          report_name: Unit Test Results
+          report_title: Unit Test Results
+          github_token: ${{ secrets.GITHUB_TOKEN }}   
+
+      - name: Sonarscanner for dotnet
+        uses: Secbyte/dotnet-sonarscanner@v2.3
+        with:
+          buildCommand: dotnet build
+          projectKey: adhamgsalem_bp-master
+          projectName: bp-master
+          sonarOrganisation: adhamgsalem
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  Deploy_QA:
+    runs-on: windows-latest
+    needs: Build
+    environment:
+      name: 'Production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'BP-CA1-QA'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_FBBA35A8552648E78067FA535015682C }}
+          package: .
+
+  Acceptance_Test:
+    runs-on: windows-latest
+    needs: Deploy_QA
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run acceptance tests
+        run : dotnet test
+        working-directory : ./bp-master.BDDTests   
+
+  Deploy_STAGING:
+    runs-on: windows-latest
+    needs: Acceptance_Test
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'bp-ca1-prod'
+          slot-name: 'bp-ca1-staging'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A96AD981B3FA4D9085DB1497E924DBB5 }}
+          package: .
+
+  Selenuim_Test:
+    runs-on: windows-latest
+    needs: Deploy_STAGING
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: Run selenuim tests
+        run : dotnet test
+        working-directory : ./SeleniumTests
+
+      - name: Test results
+        uses: zyborg/dotnet-tests-report@v1
+        with:
+          project_path: ./SeleniumTests
+          report_name: Selenuim Test Results
+          report_title: Selenuim Test Results
+          github_token: ${{ secrets.GITHUB_TOKEN }} 
+
+  K6_Load_Test:
+    runs-on: ubuntu-latest
+    needs: Deploy_STAGING
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Pull Docker image for k6
+      run: docker pull loadimpact/k6
+
+    - name: Run k6 load test, capture report
+      run: docker run -i loadimpact/k6 run - <bp-master.K6Tests/Test2.js > k6report.txt
+
+    - uses: actions/upload-artifact@v2
+      with:
+        name: k6report
+        path: k6report.txt
+
+  Zap_Scan_Test:
+    runs-on: ubuntu-latest
+    needs: Deploy_STAGING
+
+    steps:
+    - name: Pull Docker image for ZAP
+      run: docker pull owasp/zap2docker-weekly
+
+    - name: Run baseline scan
+      run: docker run -v /report:/zap/wrk/:rw --user root -t owasp/zap2docker-weekly zap-baseline.py -t ${{env.URI}} -I -r zapreport.html
+  
+    - uses: actions/upload-artifact@v2
+      name: upload ZAP report
+      with:
+        name: ZAPreport
+        path: /report/zapreport.html
+
+  Deploy_PROD:
+    runs-on: windows-latest
+    needs: Selenuim_Test
+    environment:
+      name: 'production'
+      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v2
+        with:
+          name: .net-app
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v2
+        with:
+          app-name: 'bp-ca1-prod'
+          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_B23C5F69416B4390859FBA92B3191F1E }}
+          package: .

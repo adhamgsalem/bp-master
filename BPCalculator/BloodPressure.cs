@@ -6,19 +6,20 @@ namespace BPCalculator
     // BP categories
     public enum BPCategory
     {
-        [Display(Name = "Nothing")] None,
+        [Display(Name = "Error, Please measure again!")] None,
         [Display(Name="Low Blood Pressure")] Low,
         [Display(Name="Ideal Blood Pressure")]  Ideal,
         [Display(Name="Pre-High Blood Pressure")] PreHigh,
-        [Display(Name ="High Blood Pressure")]  High
+        [Display(Name ="High Blood Pressure")]  High,
+        [Display(Name = "Hypertensive-Crisis Blood Pressure")] Crisis
     };
 
     public class BloodPressure
     {
         public const int SystolicMin = 70;
-        public const int SystolicMax = 190;
+        public const int SystolicMax = 250;
         public const int DiastolicMin = 40;
-        public const int DiastolicMax = 100;
+        public const int DiastolicMax = 120;
 
         [Range(SystolicMin, SystolicMax, ErrorMessage = "Invalid Systolic Value")]
         public int Systolic { get; set; }                       // mmHG
@@ -45,11 +46,17 @@ namespace BPCalculator
             return ((this.Systolic < 140  && this.Systolic >= 120) && (this.Diastolic < 90 && this.Diastolic >= 80));
         }
 
-        //IF Systolic is less than 190 or euqal 140 and Diastolic is less than 100 or equal to 90 then BP is PREHIGH
+        //IF Systolic is less than 190 or euqal 140 and Diastolic is less than 100 or equal to 90 then BP is HIGH
         public bool HighBloodPressure()
         {
             return ((this.Systolic < 190  && this.Systolic >= 140) && (this.Diastolic < 100 && this.Diastolic >= 90));
         }
+        public bool CrisisBloodPressure()
+        {
+            return ((this.Systolic >= 190) && (this.Diastolic >= 100));
+        }
+
+
 
         // calculate BP category
         public BPCategory Category
@@ -76,6 +83,11 @@ namespace BPCalculator
                     if (this.HighBloodPressure())
                 {
                     return BPCategory.High;
+                }
+
+                    if (this.CrisisBloodPressure())
+                {
+                    return BPCategory.Crisis;
                 }
 
                 return NoValue;

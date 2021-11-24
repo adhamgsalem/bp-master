@@ -7,6 +7,7 @@
 
 
 <h4>BP Category Calculator</h4>
+<p>Please enter blood pressure readings below to calculate your blood pressure category</p>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -14,7 +15,7 @@
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="BP.Systolic" class="control-label"></label>
-                <input asp-for="BP.Systolic" class="form-control"/>
+                <input asp-for="BP.Systolic" class="form-control" />
                 <span asp-validation-for="BP.Systolic" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -23,13 +24,13 @@
                 <span asp-validation-for="BP.Diastolic" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-default" />
+                <input type="submit" value="Submit" class="btn btn-primary" />
             </div>
             @if (ViewData.ModelState.IsValid)
             {
-                <div class="form-group">
-                    @Html.DisplayFor(model => model.BP.Category, new { htmlAttributes = new { @class = "form-control" } })
-                </div>
+            <div class="form-group">
+                @Html.DisplayFor(model => model.BP.Category, new { htmlAttributes = new { @class = "form-control" } })
+            </div>
             }
         </form>
     </div>

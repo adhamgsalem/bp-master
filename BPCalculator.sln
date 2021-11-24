@@ -3,7 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30002.166
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BPCalculator", "BPCalculator\BPCalculator.csproj", "{5966DA6C-819D-4303-ADC7-425B8541EC84}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BPCalculator", "BPCalculator\BPCalculator.csproj", "{5966DA6C-819D-4303-ADC7-425B8541EC84}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bp-master.Tests", "bp-master.Tests\bp-master.Tests.csproj", "{001AF49C-85D8-4651-914D-FF3A340D98CE}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "bp-master.BDDTests", "bp-master.BDDTests\bp-master.BDDTests.csproj", "{E259D5F8-5C18-44C9-8365-13943E565DB1}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SeleniumTests", "SeleniumTests\SeleniumTests.csproj", "{44C70B82-ABD4-4B79-8A53-397154C42AC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8FF563FA-6268-4787-8D0C-0AE783B37209}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +23,18 @@ Global
 		{5966DA6C-819D-4303-ADC7-425B8541EC84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{5966DA6C-819D-4303-ADC7-425B8541EC84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{5966DA6C-819D-4303-ADC7-425B8541EC84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{001AF49C-85D8-4651-914D-FF3A340D98CE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{001AF49C-85D8-4651-914D-FF3A340D98CE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{001AF49C-85D8-4651-914D-FF3A340D98CE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{001AF49C-85D8-4651-914D-FF3A340D98CE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E259D5F8-5C18-44C9-8365-13943E565DB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E259D5F8-5C18-44C9-8365-13943E565DB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E259D5F8-5C18-44C9-8365-13943E565DB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E259D5F8-5C18-44C9-8365-13943E565DB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44C70B82-ABD4-4B79-8A53-397154C42AC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44C70B82-ABD4-4B79-8A53-397154C42AC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44C70B82-ABD4-4B79-8A53-397154C42AC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44C70B82-ABD4-4B79-8A53-397154C42AC9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
