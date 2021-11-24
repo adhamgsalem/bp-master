@@ -78,9 +78,9 @@ The Azure platform is used for hosting the web application. The platform provide
 
 
 The Azure Platform, also provides deployment slots that are used in the release pipeline to test the web application before it goes into produced.  In this pipeline we deploy a build into the following slots:
-* QA: Used for testing of the application in a QA environment (acceptance testing)
-* STAGING: Used for performance,  pen testing and E2E testing
-* PRODUCTION: Used by the end user - the production slot is main application web URL, we use a slot swap to move from Stage into Production as part of the release pipline
+* QA: Used for testing of the application in a QA environment (acceptance testing) | http://bp-ca1-qa.azurewebsites.net/
+* STAGING: Used for performance,  pen testing and E2E testing | http://bp-ca1-prod-bp-ca1-staging.azurewebsites.net/
+* PRODUCTION: Used by the end user - the production slot is main application web URL, we use a slot swap to move from Stage into Production as part of the release pipline | http://bp-ca1-prod.azurewebsites.net/
 
 
 ---
