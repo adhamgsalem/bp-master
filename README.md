@@ -13,7 +13,7 @@ Sonar Code Analysis
 
 
 Build and Deploy pipeline
-[![Build and deploy](https://github.com/adhamgsalem/bp-master/actions/workflows/build_package.yml/badge.svg)](https://github.com/adhamgsalem/bp-master/actions/workflows/build_package.yml)
+[![Build and deploy](https://github.com/adhamgsalem/bp-master/actions/workflows/build_package_github.yml/badge.svg?branch=master&event=check_run)](https://github.com/adhamgsalem/bp-master/actions/workflows/build_package_github.yml)
 
 
 # Implementation of Build & Release Pipeline
