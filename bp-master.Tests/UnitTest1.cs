@@ -14,6 +14,9 @@ namespace bp_master.Tests.BloodPressure
         [InlineData(71, 41)]
         [InlineData(89, 59)]
         [InlineData(80, 55)]
+        [InlineData(70, 41)]
+        [InlineData(80, 59)]
+        [InlineData(89, 50)]
         public void TestLowCategpry(int systolic, int diastolic)
         {
             BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
@@ -27,6 +30,8 @@ namespace bp_master.Tests.BloodPressure
         [InlineData(100, 78)]
         [InlineData(109, 75)]
         [InlineData(105, 60)]
+        [InlineData(90, 75)]
+        [InlineData(110, 70)]
         public void TestIdealCategpry(int systolic, int diastolic)
         {
             BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
@@ -37,6 +42,8 @@ namespace bp_master.Tests.BloodPressure
         [InlineData(139, 81)]
         [InlineData(130, 80)]
         [InlineData(121, 89)]
+        [InlineData(130, 70)]
+        [InlineData(120, 89)]
         public void TestPreCategpry(int systolic, int diastolic)
         {
             BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
@@ -47,6 +54,8 @@ namespace bp_master.Tests.BloodPressure
         [InlineData(180, 99)]
         [InlineData(170, 95)]
         [InlineData(160, 91)]
+        [InlineData(150, 90)]
+        [InlineData(140, 40)]
         public void TestHighCategpry(int systolic, int diastolic)
         {
             BP = new BPCalculator.BloodPressure() { Systolic = systolic, Diastolic = diastolic };
