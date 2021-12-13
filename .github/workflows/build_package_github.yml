@@ -136,7 +136,7 @@ jobs:
 
   K6_Load_Test:
     runs-on: ubuntu-latest
-    needs: Deploy_STAGING
+    needs: Selenuim_Test
     steps:
     - uses: actions/checkout@v2
 
