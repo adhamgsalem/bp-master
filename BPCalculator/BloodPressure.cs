@@ -31,7 +31,7 @@ namespace BPCalculator
         //IF Systolic is less than 90 and Diastolic is less than 60 then BP is low
         public bool LowBloodPressure()
         {
-            return (this.Systolic < 90 || this.Diastolic < 60);
+            return (this.Systolic < 90 && this.Systolic > 70 || this.Diastolic < 60 && this.Diastolic > 40);
         }
 
         //IF Systolic is less than 120 or euqal 90 and Diastolic is less than 80 or equal to 60 then BP is Ideal
