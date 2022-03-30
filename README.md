@@ -1,15 +1,3 @@
-# Report
-Blood Pressure and Heart Rate Calculator
-
-### Status Information
-Sonar Code Analysis
-[![SonarCloud](https://sonarcloud.io/images/project_badges/sonarcloud-white.svg)](https://sonarcloud.io/summary/new_code?id=adhamgsalem_bp-master)
-
-
-Build and Deploy pipeline
-[![Build and deploy](https://github.com/adhamgsalem/bp-master/actions/workflows/build_package_github.yml/badge.svg?branch=master&event=check_run)](https://github.com/adhamgsalem/bp-master/actions/workflows/build_package_github.yml)
-
-
 # Implementation of Build & Release Pipeline
 ## Introduction
 Blood Pressure and Heart Rate Calculator application is a .Net Razor application based on Microsoft .Net Core 3.1. It provides a basic calculation of your blood pressure category. The application is developed using the following tools:
