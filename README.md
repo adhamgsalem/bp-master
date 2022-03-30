@@ -1,11 +1,5 @@
 # Report
-# MSc. in Devops - Continuous Software Delivery
-## CA1
 Blood Pressure and Heart Rate Calculator
-ASP.Net Core
-| Name | Student ID |
-| ---- | ---------- |
-| Adham Salem | X00180715 |
 
 ### Status Information
 Sonar Code Analysis
